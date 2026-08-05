@@ -62,7 +62,17 @@ Template: `assets/progress-tracker.html`. It contains the marker line
 `const PROGRESS = /*PROGRESS_DATA*/null;`. To generate: replace
 `/*PROGRESS_DATA*/null` with the current JSON object, save as
 `my-powerbi-progress.html` next to the progress file. Everything else in the
-template is self-contained (no network access, works from disk, light/dark).
+template is self-contained (no network access, works from disk).
+
+The tracker deliberately follows the design system of the Daten-WG Knowledge
+Kitchen site (https://datenwgknowledgekitchen.com/): paper background
+`#FAFAF5`, white cards with `#E7E4DB` hairlines, petrol green accent
+`#117865`, warm orange `#C25A2D` only for "now/active" states, Segoe UI
+variable font stack, uppercase letter-spaced eyebrow labels with a short
+leading line, and a 4px colored left border per module (blue `#166088`, teal
+`#2A857A`, dark red-brown `#5C2E2E`, red `#8B2E2E`). If you ever extend or
+rebuild the tracker, keep this visual language so it feels like part of the
+Knowledge Kitchen family.
 
 Regenerate after each lesson in file-capable environments; in chat-only
 environments, generate it as an artifact/download at module completions and

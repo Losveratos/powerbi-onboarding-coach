@@ -5,53 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Power BI Journey</title>
 <style>
+  /* Design tokens matching datenwgknowledgekitchen.com */
   :root{
-    --bg:#FAFAF7; --card:#FFFFFF; --ink:#0F1E2E; --soft:#475569;
-    --accent:#C25A2D; --accent-soft:#F5E3D9; --done:#2E7D52; --line:#E5E2DA;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#12181F; --card:#1B232C; --ink:#EDEAE3; --soft:#9AA7B5;
-           --accent:#E07B4C; --accent-soft:#3A2A20; --done:#4CAF7D; --line:#2C3641; }
+    --bg:#FAFAF5; --bg-card:#FFFFFF; --bg-soft:#F4F1E8; --bg-deep:#0A0A0A;
+    --ink:#1A1A1A; --ink-soft:#4A4A4A; --ink-mute:#6B6B6B;
+    --accent:#117865; --accent-warm:#C25A2D; --line:#E7E4DB;
+    --c-m1:#166088; --c-m2:#2A857A; --c-m3:#5C2E2E; --c-m4:#8B2E2E;
+    --serif:"Segoe UI Variable Display","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --sans:"Segoe UI Variable Text","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --mono:"Segoe UI Variable Small","Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   }
   *{box-sizing:border-box; margin:0}
-  body{font-family:Georgia,'Times New Roman',serif; background:var(--bg); color:var(--ink);
-       max-width:720px; margin:0 auto; padding:32px 20px 60px}
-  .mono{font-family:ui-monospace,Consolas,monospace; font-size:12px; letter-spacing:.06em;
-        text-transform:uppercase; color:var(--soft)}
-  h1{font-size:30px; margin:6px 0 2px}
-  .sub{color:var(--soft); font-family:system-ui,sans-serif; font-size:14px; margin-bottom:26px}
-  .card{background:var(--card); border:1px solid var(--line); border-radius:14px;
+  body{font-family:var(--sans); background:var(--bg); color:var(--ink);
+       max-width:720px; margin:0 auto; padding:36px 20px 60px; line-height:1.5}
+  .eyebrow{font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:.14em;
+        text-transform:uppercase; color:var(--ink-soft); display:flex; align-items:center; gap:10px}
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--ink-soft)}
+  h1{font-family:var(--serif); font-size:32px; font-weight:650; letter-spacing:-.01em; margin:10px 0 4px}
+  .sub{color:var(--ink-mute); font-size:14px; margin-bottom:28px}
+  .card{background:var(--bg-card); border:1px solid var(--line); border-radius:12px;
         padding:20px 22px; margin-bottom:16px}
+  .card-label{font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.14em;
+        text-transform:uppercase; color:var(--ink-mute); margin-bottom:12px}
   .rankrow{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px}
-  .rank{font-size:22px}
-  .xp{font-family:ui-monospace,Consolas,monospace; color:var(--accent); font-weight:bold}
-  .bar{height:14px; background:var(--accent-soft); border-radius:7px; margin:14px 0 6px; overflow:hidden}
-  .fill{height:100%; background:var(--accent); border-radius:7px; transition:width .8s ease}
-  .barlbl{display:flex; justify-content:space-between; font-family:system-ui,sans-serif;
-          font-size:12px; color:var(--soft)}
-  .badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
-  .badge{background:var(--accent-soft); border-radius:20px; padding:7px 14px;
-         font-family:system-ui,sans-serif; font-size:14px}
+  .rank{font-family:var(--serif); font-size:22px; font-weight:650}
+  .xp{font-family:var(--mono); color:var(--accent); font-weight:700; font-size:18px}
+  .bar{height:12px; background:var(--bg-soft); border-radius:6px; margin:14px 0 6px; overflow:hidden}
+  .fill{height:100%; background:var(--accent); border-radius:6px; transition:width .8s ease}
+  .barlbl{display:flex; justify-content:space-between; font-size:12px; color:var(--ink-mute)}
+  .badges{display:flex; flex-wrap:wrap; gap:10px}
+  .badge{background:var(--bg-soft); border:1px solid var(--line); border-radius:20px;
+         padding:6px 14px; font-size:14px; color:var(--ink)}
   .badge.locked{opacity:.35; filter:grayscale(1)}
-  .mod{display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--line)}
+  .mod{display:flex; align-items:center; gap:14px; padding:13px 0 13px 14px;
+       border-bottom:1px solid var(--line); border-left:4px solid var(--mc,var(--line)); margin-bottom:2px}
   .mod:last-child{border-bottom:none}
-  .mod .icon{font-size:22px; width:32px; text-align:center}
-  .mod .name{font-family:system-ui,sans-serif; font-size:15px; flex:1}
-  .mod .name small{display:block; color:var(--soft); font-size:12px; margin-top:2px}
+  .mod .icon{font-size:20px; width:28px; text-align:center}
+  .mod .name{font-size:15px; font-weight:600; flex:1}
+  .mod .name small{display:block; color:var(--ink-mute); font-size:12px; font-weight:400; margin-top:2px}
   .pips{display:flex; gap:5px}
-  .pip{width:12px; height:12px; border-radius:50%; background:var(--line)}
-  .pip.done{background:var(--done)}
-  .status{font-family:ui-monospace,Consolas,monospace; font-size:11px; color:var(--soft); width:86px; text-align:right}
-  .status.done{color:var(--done)} .status.now{color:var(--accent)}
-  .quiz{font-family:system-ui,sans-serif; font-size:14px; color:var(--soft)}
-  .quiz b{color:var(--ink)}
-  footer{margin-top:26px; text-align:center; font-family:system-ui,sans-serif;
-         font-size:12px; color:var(--soft)}
-  footer a{color:var(--accent)}
+  .pip{width:11px; height:11px; border-radius:50%; background:var(--bg-soft); border:1px solid var(--line)}
+  .pip.done{background:var(--accent); border-color:var(--accent)}
+  .status{font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.06em;
+          text-transform:uppercase; color:var(--ink-mute); width:80px; text-align:right}
+  .status.done{color:var(--accent)} .status.now{color:var(--accent-warm)}
+  .quiz{font-size:14px; color:var(--ink-soft)}
+  .quiz b{color:var(--ink); font-family:var(--mono)}
+  footer{margin-top:28px; text-align:center; font-size:12px; color:var(--ink-mute)}
+  footer a{color:var(--accent); font-weight:600; text-decoration:none}
+  footer a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
-  <div class="mono">Power BI Onboarding · Data Kitchen</div>
+  <div class="eyebrow">Power BI Onboarding · Data Kitchen</div>
   <h1 id="title">My Power BI Journey</h1>
   <div class="sub" id="subtitle"></div>
 
@@ -65,12 +71,12 @@
   </div>
 
   <div class="card">
-    <div class="mono" style="margin-bottom:10px">Badges</div>
+    <div class="card-label">Badges</div>
     <div class="badges" id="badges"></div>
   </div>
 
   <div class="card">
-    <div class="mono" style="margin-bottom:4px">Modules</div>
+    <div class="card-label">Module</div>
     <div id="mods"></div>
   </div>
 
@@ -86,10 +92,10 @@ const LEVELS = [[0,"Dishwasher"],[100,"Kitchen Help"],[250,"Commis"],
 const ALL_BADGES = ["💡 First Insight","🔪 Prep Cook","🧮 Measure Maker","👨‍🍳 Sous Chef",
                     "🧠 Quiz Streak","🎨 Plating Artist","⭐ Head Chef","🏆 Master of the Data Kitchen"];
 const MODULES = [
-  ["1","🥕","Foundations","Load · clean · first visuals",5],
-  ["2","🧂","Modeling & DAX","Star schema · measures · time intelligence",5],
-  ["3","🍽️","Visualization & IBCS","Declutter · chart choice · IBCS notation",4],
-  ["4","🚚","Service & Sharing","Publish · apps · refresh",3]
+  ["1","🥕","Foundations","Load · clean · first visuals",5,"var(--c-m1)"],
+  ["2","🧂","Modeling & DAX","Star schema · measures · time intelligence",5,"var(--c-m2)"],
+  ["3","🍽️","Visualization & IBCS","Declutter · chart choice · IBCS notation",4,"var(--c-m3)"],
+  ["4","🚚","Service & Sharing","Publish · apps · refresh",3,"var(--c-m4)"]
 ];
 
 const p = PROGRESS || {learner:"Demo", xp:0, badges:[], quizStats:{asked:0,firstTry:0},
@@ -103,7 +109,7 @@ document.getElementById("xp").textContent = p.xp;
 document.getElementById("lvlnow").textContent = LEVELS[li][1];
 document.getElementById("lvlnext").textContent = next ? next[0]+" XP → "+next[1] : "Max level!";
 const pct = next ? Math.min(100,100*(p.xp-LEVELS[li][0])/(next[0]-LEVELS[li][0])) : 100;
-requestAnimationFrame(()=>{document.getElementById("fill").style.width = pct+"%";});
+setTimeout(()=>{document.getElementById("fill").style.width = pct+"%";}, 60);
 
 document.getElementById("subtitle").textContent =
   (p.learner ? p.learner+" · " : "") + (p.lastSession ? "last session "+p.lastSession : "just getting started");
@@ -112,12 +118,12 @@ if(p.learner) document.getElementById("title").textContent = p.learner+"'s Power
 document.getElementById("badges").innerHTML = ALL_BADGES.map(b=>
   `<span class="badge ${p.badges && p.badges.includes(b) ? "" : "locked"}">${b}</span>`).join("");
 
-document.getElementById("mods").innerHTML = MODULES.map(([id,icon,name,desc,total])=>{
+document.getElementById("mods").innerHTML = MODULES.map(([id,icon,name,desc,total,color])=>{
   const m = (p.modules && p.modules[id]) || {status:"open",lessons:[]};
   const pips = Array.from({length:total},(_,i)=>
     `<span class="pip ${m.lessons && m.lessons.includes(i+1)?"done":""}"></span>`).join("");
   const st = m.status==="done" ? ["done","✓ done"] : m.status==="in-progress" ? ["now","● now"] : ["","open"];
-  return `<div class="mod"><div class="icon">${icon}</div>
+  return `<div class="mod" style="--mc:${color}"><div class="icon">${icon}</div>
     <div class="name">Module ${id} · ${name}<small>${desc}</small></div>
     <div class="pips">${pips}</div><div class="status ${st[0]}">${st[1]}</div></div>`;
 }).join("");
