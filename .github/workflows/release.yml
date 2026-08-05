@@ -26,13 +26,21 @@ jobs:
         run: |
           mkdir -p dist/powerbi-onboarding-coach
           rsync -a --exclude '.git' --exclude '.github' --exclude 'dist' \
+            --exclude 'scripts' --exclude 'powerbi-onboarding-coach-single.md' \
             ./ dist/powerbi-onboarding-coach/
           cd dist
           zip -r powerbi-onboarding-coach.zip powerbi-onboarding-coach
           unzip -l powerbi-onboarding-coach.zip
 
-      - name: Create GitHub release with ZIP
+      - name: Rebuild single-file edition
+        run: |
+          python3 scripts/build_single_file.py
+          cp powerbi-onboarding-coach-single.md dist/
+
+      - name: Create GitHub release with ZIP and single-file edition
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/powerbi-onboarding-coach.zip
+          files: |
+            dist/powerbi-onboarding-coach.zip
+            dist/powerbi-onboarding-coach-single.md
           generate_release_notes: true

@@ -40,12 +40,30 @@ Der Coach empfiehlt dir anhand deines Levels einen Einstieg — die Wahl hast du
 git clone https://github.com/Losveratos/powerbi-onboarding-coach.git ~/.claude/skills/powerbi-onboarding-coach
 ```
 
-### Andere KI-Tools (ChatGPT, Copilot, …)
+### Kein Claude? Die Ein-Datei-Version (Copilot, ChatGPT, Firmen-Chatbots)
 
-Der Skill ist reines Markdown ohne Tool-Abhängigkeiten: Inhalt von
-[`SKILL.md`](SKILL.md) als System-/Projektanweisung einfügen; die Dateien aus
-[`references/`](references/) und [`assets/`](assets/) bei Bedarf mitgeben
-(die SKILL.md sagt dem Modell, wann es welche Datei braucht).
+Für alle KI-Tools ohne Skill-Upload gibt es den kompletten Coach als **eine
+einzige Markdown-Datei**:
+[`powerbi-onboarding-coach-single.md`](https://github.com/Losveratos/powerbi-onboarding-coach/releases/latest/download/powerbi-onboarding-coach-single.md)
+
+So einfach geht es (funktioniert in fast jedem KI-Chat, auch im Konzern):
+
+1. Datei über den Link herunterladen.
+2. Neuen Chat starten, die Datei **plus** deine CSV/Excel anhängen.
+3. Schreiben: *„Sei mein Power BI Coach. Folge den Anweisungen in der Datei."*
+
+Deinen Fortschritt bekommst du dort als Download bzw. Textblock, den du in der
+nächsten Session einfach wieder anhängst.
+
+Für Admins, die den Coach fest im Unternehmen einrichten wollen:
+
+- **Microsoft 365 Copilot:** eigenen Agenten in Copilot Studio oder im Agent
+  Builder anlegen, die Datei als Knowledge hochladen, als Instruction:
+  *"Follow powerbi-onboarding-coach-single.md strictly."*
+- **ChatGPT (Team/Enterprise):** Custom GPT oder Projekt anlegen, Datei als
+  Knowledge-/Projektdatei hochladen, gleiche Instruction.
+- **Interner Chatbot (z. B. Azure OpenAI):** Dateiinhalt als System-Prompt
+  hinterlegen.
 
 ## So benutzt du den Coach (How to use)
 
@@ -121,12 +139,30 @@ The coach recommends a starting point based on your level — the choice is your
 git clone https://github.com/Losveratos/powerbi-onboarding-coach.git ~/.claude/skills/powerbi-onboarding-coach
 ```
 
-### Other AI tools (ChatGPT, Copilot, …)
+### No Claude? The single-file edition (Copilot, ChatGPT, corporate chatbots)
 
-The skill is plain Markdown with no tool dependencies: paste the contents of
-[`SKILL.md`](SKILL.md) as a system/project instruction and provide the files
-from [`references/`](references/) and [`assets/`](assets/) when needed
-(SKILL.md tells the model when to read which file).
+For every AI tool without skill upload there is the complete coach as **one
+single Markdown file**:
+[`powerbi-onboarding-coach-single.md`](https://github.com/Losveratos/powerbi-onboarding-coach/releases/latest/download/powerbi-onboarding-coach-single.md)
+
+It is as easy as this (works in almost any AI chat, including corporate ones):
+
+1. Download the file via the link.
+2. Start a new chat and attach the file **plus** your CSV/Excel.
+3. Write: *"Act as my Power BI coach. Follow the instructions in this file."*
+
+Your progress comes back as a download or text block that you simply attach
+again in your next session.
+
+For admins who want to set the coach up permanently in their company:
+
+- **Microsoft 365 Copilot:** create an agent in Copilot Studio or the Agent
+  Builder, upload the file as knowledge, and use the instruction:
+  *"Follow powerbi-onboarding-coach-single.md strictly."*
+- **ChatGPT (Team/Enterprise):** create a Custom GPT or a project, upload the
+  file as knowledge, same instruction.
+- **Internal chatbot (e.g. Azure OpenAI):** use the file content as the
+  system prompt.
 
 ## How to use
 
