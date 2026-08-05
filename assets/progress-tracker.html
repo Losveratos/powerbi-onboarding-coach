@@ -76,62 +76,88 @@
   </div>
 
   <div class="card">
-    <div class="card-label">Module</div>
+    <div class="card-label" id="modlabel">Modules</div>
     <div id="mods"></div>
   </div>
 
   <div class="card quiz" id="quizcard"></div>
 
-  <footer>Keep going, chef! 🧑‍🍳 · Deep dives: <a href="https://datenwgknowledgekitchen.com/">Daten-WG Knowledge Kitchen</a></footer>
+  <footer><span id="footmsg">Keep going, chef! 🧑‍🍳 · Deep dives: </span><a href="https://datenwgknowledgekitchen.com/">Daten-WG Knowledge Kitchen</a></footer>
 
 <script>
 const PROGRESS = /*PROGRESS_DATA*/null;
 
 const LEVELS = [[0,"Dishwasher"],[100,"Kitchen Help"],[250,"Commis"],
                 [450,"Chef de Partie"],[700,"Sous Chef"],[1000,"Head Chef"]];
-const ALL_BADGES = ["💡 First Insight","🔪 Prep Cook","🧮 Measure Maker","👨‍🍳 Sous Chef",
-                    "🧠 Quiz Streak","🎨 Plating Artist","⭐ Head Chef","🏆 Master of the Data Kitchen"];
+const ALL_BADGES = ["💡 First Insight","🔪 Prep Cook","🧮 Measure Maker","🥣 Saucier",
+                    "🧠 Quiz Streak","🎨 Plating Artist","⭐ Maître d'","🏆 Master of the Data Kitchen"];
+// pre-v1.1 progress files may still carry the old badge names
+const RENAMED = {"👨‍🍳 Sous Chef":"🥣 Saucier","⭐ Head Chef":"⭐ Maître d'"};
 const MODULES = [
-  ["1","🥕","Foundations","Load · clean · first visuals",5,"var(--c-m1)"],
-  ["2","🧂","Modeling & DAX","Star schema · measures · time intelligence",5,"var(--c-m2)"],
-  ["3","🍽️","Visualization & IBCS","Declutter · chart choice · IBCS notation",4,"var(--c-m3)"],
-  ["4","🚚","Service & Sharing","Publish · apps · refresh",3,"var(--c-m4)"]
+  ["1","🥕","Foundations",{en:"Load · clean · first visuals",de:"Laden · Putzen · erste Visuals"},5,"var(--c-m1)"],
+  ["2","🧂","Modeling & DAX",{en:"Star schema · measures · time intelligence",de:"Sternschema · Measures · Zeitintelligenz"},5,"var(--c-m2)"],
+  ["3","🍽️","Visualization & IBCS",{en:"Declutter · chart choice · IBCS notation",de:"Declutter · Chart-Wahl · IBCS-Notation"},4,"var(--c-m3)"],
+  ["4","🚚","Service & Sharing",{en:"Publish · apps · refresh",de:"Publish · Apps · Refresh"},3,"var(--c-m4)"]
 ];
 
 const p = PROGRESS || {learner:"Demo", xp:0, badges:[], quizStats:{asked:0,firstTry:0},
                        modules:{"1":{status:"open",lessons:[]},"2":{status:"open",lessons:[]},
                                 "3":{status:"open",lessons:[]},"4":{status:"open",lessons:[]}}};
 
+const lang = String(p.language||"en").toLowerCase().startsWith("de") ? "de" : "en";
+const T = {
+  en:{title:"My Power BI Journey", journey:n=>n+"'s Power BI Journey", module:"Module",
+      lastSession:"last session ", fresh:"just getting started", maxLevel:"Max level!",
+      modules:"Modules", done:"✓ done", now:"● now", open:"open",
+      quiz:(f,a)=>`Quiz accuracy: <b>${f}/${a}</b> first-try answers `,
+      sharp:"— sharp knife! 🔪", noQuiz:"No quizzes yet — they're coming, don't worry. 😄",
+      footer:"Keep going, chef! 🧑‍🍳 · Deep dives: "},
+  de:{title:"Meine Power BI Journey", journey:n=>(/[sßxz]$/i.test(n)?n+"’":n+"s")+" Power BI Journey", module:"Modul",
+      lastSession:"letzte Session ", fresh:"gerade gestartet", maxLevel:"Max-Level!",
+      modules:"Module", done:"✓ fertig", now:"● jetzt", open:"offen",
+      quiz:(f,a)=>`Quiz-Quote: <b>${f}/${a}</b> im ersten Versuch `,
+      sharp:"— scharfes Messer! 🔪", noQuiz:"Noch keine Quizze — die kommen noch. 😄",
+      footer:"Weiter so, Chef! 🧑‍🍳 · Deep Dives: "}
+}[lang];
+document.documentElement.lang = lang;
+document.title = T.title;
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
 let li=0; for(let i=0;i<LEVELS.length;i++){ if(p.xp>=LEVELS[i][0]) li=i; }
 const next = LEVELS[li+1];
 document.getElementById("rank").textContent = LEVELS[li][1];
 document.getElementById("xp").textContent = p.xp;
 document.getElementById("lvlnow").textContent = LEVELS[li][1];
-document.getElementById("lvlnext").textContent = next ? next[0]+" XP → "+next[1] : "Max level!";
+document.getElementById("lvlnext").textContent = next ? next[0]+" XP → "+next[1] : T.maxLevel;
 const pct = next ? Math.min(100,100*(p.xp-LEVELS[li][0])/(next[0]-LEVELS[li][0])) : 100;
 setTimeout(()=>{document.getElementById("fill").style.width = pct+"%";}, 60);
 
 document.getElementById("subtitle").textContent =
-  (p.learner ? p.learner+" · " : "") + (p.lastSession ? "last session "+p.lastSession : "just getting started");
-if(p.learner) document.getElementById("title").textContent = p.learner+"'s Power BI Journey";
+  (p.learner ? p.learner+" · " : "") + (p.lastSession ? T.lastSession+p.lastSession : T.fresh);
+document.getElementById("title").textContent = p.learner ? T.journey(p.learner) : T.title;
+document.getElementById("modlabel").textContent = T.modules;
+document.getElementById("footmsg").textContent = T.footer;
 
-document.getElementById("badges").innerHTML = ALL_BADGES.map(b=>
-  `<span class="badge ${p.badges && p.badges.includes(b) ? "" : "locked"}">${b}</span>`).join("");
+const earned = (p.badges||[]).map(b=>RENAMED[b]||b);
+const badgeList = ALL_BADGES.concat(earned.filter(b=>!ALL_BADGES.includes(b)));
+document.getElementById("badges").innerHTML = badgeList.map(b=>
+  `<span class="badge ${earned.includes(b) ? "" : "locked"}">${esc(b)}</span>`).join("");
 
 document.getElementById("mods").innerHTML = MODULES.map(([id,icon,name,desc,total,color])=>{
   const m = (p.modules && p.modules[id]) || {status:"open",lessons:[]};
   const pips = Array.from({length:total},(_,i)=>
     `<span class="pip ${m.lessons && m.lessons.includes(i+1)?"done":""}"></span>`).join("");
-  const st = m.status==="done" ? ["done","✓ done"] : m.status==="in-progress" ? ["now","● now"] : ["","open"];
+  const st = m.status==="done" ? ["done",T.done] : m.status==="in-progress" ? ["now",T.now] : ["",T.open];
   return `<div class="mod" style="--mc:${color}"><div class="icon">${icon}</div>
-    <div class="name">Module ${id} · ${name}<small>${desc}</small></div>
+    <div class="name">${T.module} ${id} · ${name}<small>${desc[lang]}</small></div>
     <div class="pips">${pips}</div><div class="status ${st[0]}">${st[1]}</div></div>`;
 }).join("");
 
 const q = p.quizStats || {asked:0,firstTry:0};
 document.getElementById("quizcard").innerHTML = q.asked
-  ? `Quiz accuracy: <b>${q.firstTry}/${q.asked}</b> first-try answers ${q.firstTry/q.asked>=0.8?"— sharp knife! 🔪":""}`
-  : "No quizzes yet — they're coming, don't worry. 😄";
+  ? T.quiz(q.firstTry,q.asked) + (q.firstTry/q.asked>=0.8?T.sharp:"")
+  : T.noQuiz;
 </script>
 </body>
 </html>

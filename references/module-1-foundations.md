@@ -16,6 +16,27 @@ Teach one lesson per exchange-cycle, following the lesson rhythm from SKILL.md
   headers look right?" Compare against the data profile.
 - Quiz idea: "What's the difference between *Load* and *Transform Data*?"
 
+### Locale pitfalls — check right at import (esp. German/European files)
+
+If the data profile showed European conventions — semicolon-delimited CSV,
+comma decimals (`1.234,56`), `DD.MM.YYYY` dates — expect Power BI on a
+different-locale system to mangle numbers or land dates as text. Preempt, don't
+debug:
+
+- CSV dialog: wrong column count in the preview almost always means the
+  delimiter dropdown needs switching (semicolon vs comma).
+- Numbers/dates parsed wrong: right-click the column → Change Type →
+  **Using Locale…** → choose the target data type (e.g. Decimal Number or
+  Date), THEN the source locale (e.g. German) — the dialog needs both. Frame
+  it as "tell Power Query which country the file comes from".
+- Mention once: File → Options and settings → Options → **Current File:
+  Regional Settings** → "Locale for import" sets the file's default locale
+  (not the Global section of the same dialog — that one changes the app
+  language).
+
+Later checkpoint values off by ×100/×1000 are almost always a
+decimal-separator casualty — check the type steps before anything else.
+
 ## Lesson 1.2 — Clean it in Power Query
 
 - Context: 80% of real BI work is data prep; Power Query records every step so

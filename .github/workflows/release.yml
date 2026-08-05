@@ -1,0 +1,38 @@
+name: Release skill ZIP
+
+# Builds a ZIP whose root folder is named exactly "powerbi-onboarding-coach"
+# (required by the Claude skill upload) and attaches it to a GitHub release.
+#
+# Publish sequence (the README's releases/latest link is dead until the first
+# release exists): commit to main, then push main and the tag TOGETHER —
+#   git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin main vX.Y.Z
+# — and check the Actions run attached powerbi-onboarding-coach.zip. The tag
+# must point at a commit that contains this workflow file.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stage skill folder with correct name
+        run: |
+          mkdir -p dist/powerbi-onboarding-coach
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'dist' \
+            ./ dist/powerbi-onboarding-coach/
+          cd dist
+          zip -r powerbi-onboarding-coach.zip powerbi-onboarding-coach
+          unzip -l powerbi-onboarding-coach.zip
+
+      - name: Create GitHub release with ZIP
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/powerbi-onboarding-coach.zip
+          generate_release_notes: true

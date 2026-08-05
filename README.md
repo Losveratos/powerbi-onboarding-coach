@@ -5,7 +5,7 @@
 Ein KI-Skill, der dir **Power BI mit deinen eigenen Daten** beibringt — als
 persönliches Onboarding-Erlebnis: Level-Einschätzung, individueller Lernpfad,
 Schritt-für-Schritt-Aufgaben in Power BI Desktop, Checkpoints, Quizze und ein
-gamifizierter Fortschritts-Tracker mit XP und Küchen-Badges. 🔪👨‍🍳🎨⭐
+gamifizierter Fortschritts-Tracker mit XP und Küchen-Badges. 🔪🥣🎨⭐
 
 Du bringst eine CSV- oder Excel-Datei mit, mit der du wirklich arbeitest — und
 jede Übung, jedes DAX-Snippet und jede Quizfrage baut auf **deinen** Spalten
@@ -17,9 +17,9 @@ der Coach antwortet in **deiner** Sprache.
 | Modul | Inhalt | Badge |
 |---|---|---|
 | 1 · Foundations | Daten laden, Power Query, erste Visuals, Slicer, Refresh | 🔪 Prep Cook |
-| 2 · Modeling & DAX | Sternschema, Beziehungen, Measures, CALCULATE, Zeitintelligenz | 👨‍🍳 Sous Chef |
+| 2 · Modeling & DAX | Sternschema, Beziehungen, Measures, CALCULATE, Zeitintelligenz | 🥣 Saucier |
 | 3 · Visualization & IBCS | Declutter, Chart-Wahl, IBCS-Notation, Custom Visuals | 🎨 Plating Artist |
-| 4 · Service & Sharing | Publish, Workspaces & Apps, Refresh, Mini-Governance | ⭐ Head Chef |
+| 4 · Service & Sharing | Publish, Workspaces & Apps, Refresh, Mini-Governance | ⭐ Maître d' |
 
 Der Coach empfiehlt dir anhand deines Levels einen Einstieg — die Wahl hast du.
 
@@ -27,7 +27,10 @@ Der Coach empfiehlt dir anhand deines Levels einen Einstieg — die Wahl hast du
 
 ### Claude.ai / Claude Desktop (einfachster Weg, keine Technik nötig)
 
-1. Oben auf dieser Seite: grüner Button **Code → Download ZIP**.
+1. `powerbi-onboarding-coach.zip` von der [neuesten Release](https://github.com/Losveratos/powerbi-onboarding-coach/releases/latest) herunterladen.
+   (**Nicht** den grünen „Code → Download ZIP"-Button nehmen — GitHub packt dort
+   alles in einen Ordner `…-main`, und der Skill-Upload erwartet den Ordnernamen
+   `powerbi-onboarding-coach`.)
 2. In Claude: **Einstellungen → Fähigkeiten (Skills) → Skill hochladen** und die ZIP auswählen.
 3. Fertig — weiter bei „So benutzt du den Coach".
 
@@ -67,7 +70,8 @@ Der Skill ist reines Markdown ohne Tool-Abhängigkeiten: Inhalt von
    sie nicht mehr hat).
 
 **Tipp:** Ehrlich antworten beim Level — der Coach passt Tempo und Tiefe an.
-Falsche Quiz-Antworten kosten nichts außer ein paar XP. 😄
+Falsche Quiz-Antworten kosten nichts — dir entgehen höchstens ein paar
+Bonus-XP. 😄
 
 ## Verwandte Ressourcen
 
@@ -83,7 +87,7 @@ Falsche Quiz-Antworten kosten nichts außer ein paar XP. 😄
 An AI skill that teaches you **Power BI hands-on with your own data** — as a
 personal onboarding experience: level assessment, a personalized learning
 path, step-by-step tasks in Power BI Desktop, checkpoints, quizzes, and a
-gamified progress tracker with XP and kitchen badges. 🔪👨‍🍳🎨⭐
+gamified progress tracker with XP and kitchen badges. 🔪🥣🎨⭐
 
 You bring a CSV or Excel file you actually work with — every exercise, DAX
 snippet, and quiz question is built on **your** columns and **your** business
@@ -94,9 +98,9 @@ context. The skill is written in English and coaches you in **your** language.
 | Module | Content | Badge |
 |---|---|---|
 | 1 · Foundations | Load data, Power Query, first visuals, slicers, refresh | 🔪 Prep Cook |
-| 2 · Modeling & DAX | Star schema, relationships, measures, CALCULATE, time intelligence | 👨‍🍳 Sous Chef |
+| 2 · Modeling & DAX | Star schema, relationships, measures, CALCULATE, time intelligence | 🥣 Saucier |
 | 3 · Visualization & IBCS | Decluttering, chart choice, IBCS notation, custom visuals | 🎨 Plating Artist |
-| 4 · Service & Sharing | Publish, workspaces & apps, refresh, governance basics | ⭐ Head Chef |
+| 4 · Service & Sharing | Publish, workspaces & apps, refresh, governance basics | ⭐ Maître d' |
 
 The coach recommends a starting point based on your level — the choice is yours.
 
@@ -104,7 +108,10 @@ The coach recommends a starting point based on your level — the choice is your
 
 ### Claude.ai / Claude Desktop (easiest, no tech skills needed)
 
-1. On this page: green **Code → Download ZIP** button.
+1. Download `powerbi-onboarding-coach.zip` from the [latest release](https://github.com/Losveratos/powerbi-onboarding-coach/releases/latest).
+   (**Not** the green "Code → Download ZIP" button — GitHub wraps everything in
+   a `…-main` folder there, and the skill upload expects the folder to be named
+   `powerbi-onboarding-coach`.)
 2. In Claude: **Settings → Skills → Upload skill**, pick the ZIP.
 3. Done — continue with "How to use".
 
@@ -142,7 +149,8 @@ from [`references/`](references/) and [`assets/`](assets/) when needed
    progress file if the chat no longer has it).
 
 **Tip:** Answer the level questions honestly — the coach adapts pace and
-depth. Wrong quiz answers cost nothing but a few XP. 😄
+depth. Wrong quiz answers cost nothing — you just miss out on a few bonus
+XP. 😄
 
 ## Related resources
 

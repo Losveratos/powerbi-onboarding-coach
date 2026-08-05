@@ -1,6 +1,6 @@
 # Module 4 — Power BI Service: publish & share
 
-Audience: anyone past Module 1. XP: 40 per lesson, module badge: **Head Chef** ⭐
+Audience: anyone past Module 1. XP: 40 per lesson, module badge: **Maître d'** ⭐
 Estimated effort: 45–60 minutes across 3 lessons.
 
 Prerequisite check (ask before starting): do they have a work/school Microsoft
@@ -49,7 +49,9 @@ get access". A Fabric trial (if their tenant allows it) is a fine sandbox.
 - Quiz: module final — items vs workspace vs app, when a gateway is needed,
   first thing to check when refresh fails.
 
-Module wrap-up: award **Head Chef** ⭐, update tracker — if all four modules
+Module wrap-up: award **Maître d'** ⭐ (the one who runs the dining room —
+fitting for the module about serving reports to guests), update tracker — if
+all four modules
 are complete, award the grand badge **Master of the Data Kitchen** 🏆 and make
 a small ceremony of it (recap of the whole journey, from first CSV load to a
 shared, refreshing, IBCS-styled report — that's a real skill set now).

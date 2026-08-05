@@ -19,13 +19,17 @@ Levels by total XP: 0 = **Dishwasher** · 100 = **Kitchen Help** ·
 | Badge | Earned by |
 |---|---|
 | 🔪 Prep Cook | Module 1 complete |
-| 👨‍🍳 Sous Chef | Module 2 complete |
+| 🥣 Saucier | Module 2 complete |
 | 🎨 Plating Artist | Module 3 complete |
-| ⭐ Head Chef | Module 4 complete |
+| ⭐ Maître d' | Module 4 complete |
 | 💡 First Insight | First chart built from own data (Lesson 1.3) |
 | 🧮 Measure Maker | First explicit DAX measure (Lesson 2.3) |
 | 🧠 Quiz Streak | 5 quiz questions right on first try in a row |
 | 🏆 Master of the Data Kitchen | All four modules complete |
+
+Badge names are deliberately distinct from the XP level names (levels use the
+classic brigade ranks Dishwasher → Head Chef; module badges use kitchen
+stations) — never mix the two when announcing progress.
 
 ## Progress file: `powerbi-coach-progress.json`
 
@@ -38,10 +42,10 @@ Keep it small and human-readable. Schema (all fields required unless noted):
   "level": "Newcomer",
   "goal": "Monatliches Sales-Reporting ersetzen",
   "dataset": {"file": "sales_2026.csv", "rows": 1842, "mainMeasure": "Revenue"},
-  "xp": 240,
-  "kitchenRank": "Kitchen Help",
+  "xp": 330,
+  "kitchenRank": "Commis",
   "badges": ["💡 First Insight", "🔪 Prep Cook"],
-  "quizStats": {"asked": 9, "firstTry": 7},
+  "quizStats": {"asked": 9, "firstTry": 7, "currentStreak": 3},
   "modules": {
     "1": {"status": "done", "lessons": [1,2,3,4,5]},
     "2": {"status": "in-progress", "lessons": [1]},
@@ -55,6 +59,11 @@ Keep it small and human-readable. Schema (all fields required unless noted):
 
 `notes` is your coach memory — 1–3 short observations that help the next
 session continue smoothly (sticking points, pace, preferences).
+
+`quizStats.currentStreak` counts consecutive first-try-correct answers and
+resets to 0 on any miss — it must live in the file so the 🧠 Quiz Streak badge
+(5 in a row) survives a session break. Once the badge is earned, keep counting
+but don't award it again.
 
 ## HTML progress tracker
 

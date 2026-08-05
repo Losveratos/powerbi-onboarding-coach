@@ -1,7 +1,7 @@
 # Module 2 — Data Modeling & DAX
 
 Audience: Explorers and Practitioners (Module 1 or equivalent required).
-XP: 50 per lesson, module badge: **Sous Chef** 👨‍🍳
+XP: 50 per lesson, module badge: **Saucier** 🥣
 Estimated effort: 90–120 minutes across 5 lessons.
 
 If the user's data is a single flat table, that's fine — Lessons 2.1–2.2 build
@@ -13,11 +13,12 @@ remove-duplicates). If they uploaded multiple tables/sheets, use those.
 - Context: flat tables work until they don't — one fact table + dimension
   tables is how every serious Power BI model is built. Kitchen metaphor: mise
   en place — ingredients sorted into bowls before cooking.
-- Task: create a date table. Provide copy-paste DAX:
-  `Date = CALENDAR(MIN(<Fact>[<DateCol>]), MAX(<Fact>[<DateCol>]))` plus
-  Year/Month/MonthNo columns via `FORMAT`/`MONTH`. Mark as date table.
-- Checkpoint: "How many rows does your Date table have?" (verify against the
-  profiled date range).
+- Task: create a date table covering WHOLE years — time intelligence (YTD, PY
+  in 2.5) only behaves predictably on complete years. Provide copy-paste DAX:
+  `Date = CALENDAR(DATE(YEAR(MIN(<Fact>[<DateCol>])),1,1), DATE(YEAR(MAX(<Fact>[<DateCol>])),12,31))`
+  plus Year/Month/MonthNo columns via `FORMAT`/`MONTH`. Mark as date table.
+- Checkpoint: "How many rows does your Date table have?" (should be full
+  years × 365/366 — verify against the profiled date range).
 - Quiz idea: why not just use the date column in the fact table? (auto
   date/time pitfalls, shared calendar across facts).
 
@@ -70,6 +71,7 @@ remove-duplicates). If they uploaded multiple tables/sheets, use those.
 - Quiz: 3-question module final (context transition, CALCULATE behavior, when
   YTD resets).
 
-Module wrap-up: award **Sous Chef**, update tracker. Natural next step:
+Module wrap-up: award **Saucier** 🥣 (the station chef who masters the sauces
+— DAX is the sauce), update tracker. Natural next step:
 Module 3 (make the numbers look professional — IBCS) or Module 4 (share the
 model with the team). MS Learn links: resources.md § Module 2.

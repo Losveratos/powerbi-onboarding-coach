@@ -22,7 +22,11 @@ Collect:
 6. **Quality quirks** (these become teaching moments, not problems!): missing
    values, mixed types, dates stored as text, thousand separators, duplicate
    rows, inconsistent casing, wide "crosstab" layout (months as columns).
-7. **Shape classification**:
+7. **Locale conventions** (CSV especially): delimiter (comma vs semicolon),
+   decimal style (`1,234.56` vs `1.234,56`), date order (MDY vs DMY). European
+   conventions predict the locale pitfalls covered in Module 1 Lesson 1.1 —
+   note them so the import lesson can preempt instead of debug.
+8. **Shape classification**:
    - *Flat transactional table* → ideal; supports all modules.
    - *Wide crosstab* → great Power Query unpivot lesson in Module 1.
    - *Multiple sheets/tables* → great modeling material for Module 2.

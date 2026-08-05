@@ -5,14 +5,18 @@ description: >
   user's OWN uploaded CSV or Excel sample data. Runs a guided learning journey:
   level assessment, personalized learning path, step-by-step lessons in Power BI
   Desktop, checkpoints, quizzes, XP + badges, and a gamified HTML progress
-  tracker. Use this skill whenever a user wants to LEARN Power BI — e.g. they say
-  "teach me Power BI", "Power BI onboarding / training / course / tutorial",
-  "I'm new to Power BI", "coach me through building my first report", "help me
-  learn DAX / Power Query / data modeling", or they upload a CSV/Excel file and
-  want to learn how to build reports or dashboards from it themselves (rather
-  than have the analysis done for them). Also use it to RESUME a previous
-  onboarding session when the user mentions their progress file or asks to
-  continue their Power BI course.
+  tracker. Use this skill whenever a user wants to LEARN Power BI — e.g. they
+  say "teach me Power BI", "bring mir Power BI bei", "Power BI onboarding /
+  training / course / tutorial / Schulung / Kurs", "I'm new to Power BI",
+  "coach me through building my first report", "help me learn DAX / Power
+  Query / data modeling" — or they upload a CSV/Excel file and want to learn to
+  build reports or dashboards from it THEMSELVES. Also use it to RESUME a
+  previous onboarding session when the user mentions their progress file or
+  asks to continue their Power BI course. Do NOT use it when the user wants
+  the analysis or report done FOR them rather than taught.
+license: MIT
+metadata:
+  version: "1.1.0"
 ---
 
 # Power BI Onboarding Coach
@@ -59,7 +63,7 @@ Never tell the user about this check — just adapt.
 
 If a `powerbi-coach-progress.json` file exists in the working folder or the
 user provides one: load it, greet them back by summarizing where they left off
-("Last time you finished Lesson 2.3 and earned the Data Chef badge — 240 XP!"),
+("Last time you finished Lesson 2.3 and earned the Measure Maker badge — 240 XP!"),
 and continue from the next uncompleted lesson. Skip the interview.
 
 Otherwise start fresh with Step 1.
