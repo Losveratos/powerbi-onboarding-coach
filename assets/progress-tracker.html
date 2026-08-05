@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Power BI Journey</title>
+<style>
+  :root{
+    --bg:#FAFAF7; --card:#FFFFFF; --ink:#0F1E2E; --soft:#475569;
+    --accent:#C25A2D; --accent-soft:#F5E3D9; --done:#2E7D52; --line:#E5E2DA;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#12181F; --card:#1B232C; --ink:#EDEAE3; --soft:#9AA7B5;
+           --accent:#E07B4C; --accent-soft:#3A2A20; --done:#4CAF7D; --line:#2C3641; }
+  }
+  *{box-sizing:border-box; margin:0}
+  body{font-family:Georgia,'Times New Roman',serif; background:var(--bg); color:var(--ink);
+       max-width:720px; margin:0 auto; padding:32px 20px 60px}
+  .mono{font-family:ui-monospace,Consolas,monospace; font-size:12px; letter-spacing:.06em;
+        text-transform:uppercase; color:var(--soft)}
+  h1{font-size:30px; margin:6px 0 2px}
+  .sub{color:var(--soft); font-family:system-ui,sans-serif; font-size:14px; margin-bottom:26px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px;
+        padding:20px 22px; margin-bottom:16px}
+  .rankrow{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px}
+  .rank{font-size:22px}
+  .xp{font-family:ui-monospace,Consolas,monospace; color:var(--accent); font-weight:bold}
+  .bar{height:14px; background:var(--accent-soft); border-radius:7px; margin:14px 0 6px; overflow:hidden}
+  .fill{height:100%; background:var(--accent); border-radius:7px; transition:width .8s ease}
+  .barlbl{display:flex; justify-content:space-between; font-family:system-ui,sans-serif;
+          font-size:12px; color:var(--soft)}
+  .badges{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
+  .badge{background:var(--accent-soft); border-radius:20px; padding:7px 14px;
+         font-family:system-ui,sans-serif; font-size:14px}
+  .badge.locked{opacity:.35; filter:grayscale(1)}
+  .mod{display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--line)}
+  .mod:last-child{border-bottom:none}
+  .mod .icon{font-size:22px; width:32px; text-align:center}
+  .mod .name{font-family:system-ui,sans-serif; font-size:15px; flex:1}
+  .mod .name small{display:block; color:var(--soft); font-size:12px; margin-top:2px}
+  .pips{display:flex; gap:5px}
+  .pip{width:12px; height:12px; border-radius:50%; background:var(--line)}
+  .pip.done{background:var(--done)}
+  .status{font-family:ui-monospace,Consolas,monospace; font-size:11px; color:var(--soft); width:86px; text-align:right}
+  .status.done{color:var(--done)} .status.now{color:var(--accent)}
+  .quiz{font-family:system-ui,sans-serif; font-size:14px; color:var(--soft)}
+  .quiz b{color:var(--ink)}
+  footer{margin-top:26px; text-align:center; font-family:system-ui,sans-serif;
+         font-size:12px; color:var(--soft)}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+  <div class="mono">Power BI Onboarding · Data Kitchen</div>
+  <h1 id="title">My Power BI Journey</h1>
+  <div class="sub" id="subtitle"></div>
+
+  <div class="card">
+    <div class="rankrow">
+      <div class="rank">🍳 <span id="rank"></span></div>
+      <div class="xp"><span id="xp"></span> XP</div>
+    </div>
+    <div class="bar"><div class="fill" id="fill" style="width:0%"></div></div>
+    <div class="barlbl"><span id="lvlnow"></span><span id="lvlnext"></span></div>
+  </div>
+
+  <div class="card">
+    <div class="mono" style="margin-bottom:10px">Badges</div>
+    <div class="badges" id="badges"></div>
+  </div>
+
+  <div class="card">
+    <div class="mono" style="margin-bottom:4px">Modules</div>
+    <div id="mods"></div>
+  </div>
+
+  <div class="card quiz" id="quizcard"></div>
+
+  <footer>Keep going, chef! 🧑‍🍳 · Deep dives: <a href="https://datenwgknowledgekitchen.com/">Daten-WG Knowledge Kitchen</a></footer>
+
+<script>
+const PROGRESS = /*PROGRESS_DATA*/null;
+
+const LEVELS = [[0,"Dishwasher"],[100,"Kitchen Help"],[250,"Commis"],
+                [450,"Chef de Partie"],[700,"Sous Chef"],[1000,"Head Chef"]];
+const ALL_BADGES = ["💡 First Insight","🔪 Prep Cook","🧮 Measure Maker","👨‍🍳 Sous Chef",
+                    "🧠 Quiz Streak","🎨 Plating Artist","⭐ Head Chef","🏆 Master of the Data Kitchen"];
+const MODULES = [
+  ["1","🥕","Foundations","Load · clean · first visuals",5],
+  ["2","🧂","Modeling & DAX","Star schema · measures · time intelligence",5],
+  ["3","🍽️","Visualization & IBCS","Declutter · chart choice · IBCS notation",4],
+  ["4","🚚","Service & Sharing","Publish · apps · refresh",3]
+];
+
+const p = PROGRESS || {learner:"Demo", xp:0, badges:[], quizStats:{asked:0,firstTry:0},
+                       modules:{"1":{status:"open",lessons:[]},"2":{status:"open",lessons:[]},
+                                "3":{status:"open",lessons:[]},"4":{status:"open",lessons:[]}}};
+
+let li=0; for(let i=0;i<LEVELS.length;i++){ if(p.xp>=LEVELS[i][0]) li=i; }
+const next = LEVELS[li+1];
+document.getElementById("rank").textContent = LEVELS[li][1];
+document.getElementById("xp").textContent = p.xp;
+document.getElementById("lvlnow").textContent = LEVELS[li][1];
+document.getElementById("lvlnext").textContent = next ? next[0]+" XP → "+next[1] : "Max level!";
+const pct = next ? Math.min(100,100*(p.xp-LEVELS[li][0])/(next[0]-LEVELS[li][0])) : 100;
+requestAnimationFrame(()=>{document.getElementById("fill").style.width = pct+"%";});
+
+document.getElementById("subtitle").textContent =
+  (p.learner ? p.learner+" · " : "") + (p.lastSession ? "last session "+p.lastSession : "just getting started");
+if(p.learner) document.getElementById("title").textContent = p.learner+"'s Power BI Journey";
+
+document.getElementById("badges").innerHTML = ALL_BADGES.map(b=>
+  `<span class="badge ${p.badges && p.badges.includes(b) ? "" : "locked"}">${b}</span>`).join("");
+
+document.getElementById("mods").innerHTML = MODULES.map(([id,icon,name,desc,total])=>{
+  const m = (p.modules && p.modules[id]) || {status:"open",lessons:[]};
+  const pips = Array.from({length:total},(_,i)=>
+    `<span class="pip ${m.lessons && m.lessons.includes(i+1)?"done":""}"></span>`).join("");
+  const st = m.status==="done" ? ["done","✓ done"] : m.status==="in-progress" ? ["now","● now"] : ["","open"];
+  return `<div class="mod"><div class="icon">${icon}</div>
+    <div class="name">Module ${id} · ${name}<small>${desc}</small></div>
+    <div class="pips">${pips}</div><div class="status ${st[0]}">${st[1]}</div></div>`;
+}).join("");
+
+const q = p.quizStats || {asked:0,firstTry:0};
+document.getElementById("quizcard").innerHTML = q.asked
+  ? `Quiz accuracy: <b>${q.firstTry}/${q.asked}</b> first-try answers ${q.firstTry/q.asked>=0.8?"— sharp knife! 🔪":""}`
+  : "No quizzes yet — they're coming, don't worry. 😄";
+</script>
+</body>
+</html>
